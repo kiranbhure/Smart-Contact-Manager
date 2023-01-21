@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="layout(content)">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}">Base html</title>
+    <link rel="stylesheet" href="" th:href="@{/css/style.css}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="fixed-top navbar navbar-expand-lg navbar-dark">
+  	<div class="container-fluid fw-bold">
+    	<a class="navbar-brand fs-4" href="#">Smart Contact Manager</a>
+    	
+    	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      	<span class="navbar-toggler-icon"></span>
+    	</button>
+    	
+    	<div class="collapse navbar-collapse fs-6" id="navbarSupportedContent">
+      	<ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-uppercase">
+        	<li class="nav-item">
+        	<a class="nav-link active" aria-current="page" href="#" > <span th:text="${user.name}"></span> </a>
+        	</li>
+        	
+        	<li class="nav-item ">
+          	<a class="nav-link" th:href="@{/logout}">Logout</a>
+        	</li>
+      	</ul>
+    	</div>
+  	</div>
+	</nav>
+	<!-- end-navbar -->
+    
+    <!-- side bar -->
+    <div id="left" class="sidebar mt-2">
+    	<span onclick="closeNav()" class="crossBtn">&times;</span>
+    	<a id="home-itm" th:href="@{/user/index}" class="item"> <i class="fa fa-home" aria-hidden="true"></i> Home</a>
+    	<a id="view-itm" th:href="@{/user/show-contacts/0}" class="item"> <i class="fa-solid fa-address-card"></i> View Contact</a>
+    	<a id="add-itm" th:href="@{/user/add-contact}" class="item"> <i class="fa-solid fa-file-signature"></i> Add Contact</a>
+    	<a id="profile-itm" th:href="@{/user/profile}" class="item"> <i class="fa-solid fa-user"></i> Your Profile</a>
+    	<a id="settings-itm" th:href="@{/user/settings}" class="item"> <i class="fa-solid fa-gear"></i> Settings</a>
+    	<a th:href="@{/logout}" class="item"> <i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </div>
+    <!-- end-side bar -->
+    
+    <!-- content area -->
+    <div id="right" class="content mt-5">
+    	<i id="bar" onclick="openNav()" class="fas fa-bars m-3"></i>
+    	<div th:replace="${content}" ></div>
+    </div>
+    <!-- end-content area -->
+    
+    <script>
+    	const deleteContact = (CId) => {
+    		swal({
+    			  title: "Are you sure?",
+    			  text: "Do you want to delete this contact..",
+    			  icon: "warning",
+    			  buttons: true,
+    			  dangerMode: true,
+    			})
+    			.then((willDelete) => {
+    			  if (willDelete) {
+    				  window.location="/user/delete/" + CId;
+    			  } else {
+    			    swal("Your contact is safe!");
+    			  }
+    			});
+    	}
+    </script>
+    
+    
+    <script th:src="@{/js/script.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </body>
+</html>
+
+
+

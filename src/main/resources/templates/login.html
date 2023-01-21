@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Login page</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="row ">
+				<div class="col-md-5 offset-md-3  mx-auto"
+					th:classappend=" ${param.error} or ${param.logout} ? 'mt-1px' : 'mt-4' ">
+					<div class="my-card rounded-4 px-4">						
+						<!-- error messages -->
+						<div class="text-center">
+							<div th:if="${param.error}" class="alert alert-danger">
+								Invalid UserName or Password
+							</div>
+
+							<div th:if="${param.logout}" class="alert alert-success">
+								You have been logged out
+							</div>
+						
+							<div th:if="${param.change}" class="alert alert-success">
+								<p th:text="${param.change}"></p>
+							</div>
+						</div>
+						<!-- end error messages -->
+						
+						<div class="text-center">
+							<img th:src="@{../img/logo.png}" style="width: 70px;" alt="logo">
+							<h4 class="fw-bold mt-1 mb-5 pb-1">We are The Contact
+								Managers</h4>
+						</div>
+						
+						<form th:action="@{/dologin}" action="#" method="post">
+							<div class="form-outline mb-4">
+								<label class="form-label" for="form2Example11">UserName:</label>
+								<input type="email" id="form2Example11" class="form-control"
+									placeholder="Phone number or email address" name="username" />
+
+							</div>
+
+							<div class="form-outline mb-4">
+								<label class="form-label" for="form2Example22">Password:</label>
+								<input type="password" id="form2Example22" class="form-control"
+									name="password" />
+
+							</div>
+
+							<div class="text-center pt-1 mb-5 pb-1">
+								<button
+									class="btn btn-success btn-block fa-lg gradient-custom-2 mb-3 w-100"
+									type="submit">Log in</button>
+								<a class="text-muted" th:href="@{/forgot}">Forgot password?</a>
+							</div>
+
+							<div
+								class="d-flex align-items-center justify-content-center pb-4">
+								<p class="mb-0 me-2">Don't have an account?</p>
+								<a href="/signup" type="button" class="btn btn-outline-danger">Create
+									new</a>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

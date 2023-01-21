@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="user/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Update-User Form</title>
+</head>
+<body>
+	<section>
+		 <div class="container">
+			<div class="row ">
+				<div class="col-md-5 offset-md-3 mx-auto">
+					<div class="my-card rounded-4 px-4">
+						<!-- session message -->
+						 <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+  							<p th:text="${session.message.content}"></p>
+  							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+						</div>
+						<!-- end session message -->
+						
+						<div class="container text-center fw-bold">
+							<img class="d-inline-block" style="width:50px" th:src="@{/img/add-user-symbol.png}" alt="" />
+							<h1 class="d-inline-block">Update User!!</h1>
+						</div>
+						
+						<form novalidate enctype="multipart/form-data"  action="" th:action="@{/user/user-update}" method="post" th:object="${user}">
+							<!-- name field -->
+							<div class="mb-3">
+    							<label for="name_field" class="form-label">Your Name:</label>
+    							<input name="name" type="text" class="form-control " th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : '' }" id="name_field" aria-describedby="emailHelp" placeholder="Enter Your Name" required="required"  th:value="${user.name}">
+    							<!-- serverSide validation -->
+    							<div id="validationServer03Feedback" class="invalid-feedback " th:each="e : ${#fields.errors('name')}" th:text="${e}">
+    							</div> 
+  							</div>
+  							
+  							<!-- email field -->
+  							<div class="mb-3">
+    							<label for="email_field" class="form-label">Your Email:</label>
+    							<input name="email" type="email" class="form-control " th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : '' }" id="email_field" aria-describedby="emailHelp" placeholder="Enter Your Email"  th:value="${user.email}">
+  								<!-- serverSide validation -->
+    							<div id="validationServer03Feedback" class="invalid-feedback " th:each="e : ${#fields.errors('email')}" th:text="${e}">
+    							</div>
+  							</div>
+  							
+  							<!-- about field -->
+  							<div class="mb-3">
+  								<textarea  rows="9" class="form-control " th:classappend="${#fields.hasErrors('about') ? 'is-invalid' : '' }" placeholder="Enter something about yourself" th:text="${user.about}" name="about"></textarea>
+  								<!-- serverSide validation -->
+    							<div id="validationServer03Feedback" class="invalid-feedback " th:each="e : ${#fields.errors('about')}" th:text="${e}">
+    							</div>
+  							</div>
+  							
+  							<!-- image field -->
+  							<div class="container mt-3">
+								<img  style="height:100px; width:100px;"  class="my_profile_pic"  th:src="@{ '/img/' + ${ user.imageUrl }}" alt="" />
+							</div>
+								
+							<div class="custom-file mt-3">
+								<h6 class="fw-bolder"> Upload Your Profile Picture:</h6>
+								<input type="file" name="profileImg" />
+							</div>
+			
+  							
+  							<div class="container text-center mt-3">
+								<button class="btn btn-success">Save Contact</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
